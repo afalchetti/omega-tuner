@@ -11,6 +11,35 @@ navigator.getUserMedia = (navigator.getUserMedia ||
                           navigator.mozGetUserMedia ||
                           navigator.msGetUserMedia);
 
+class Note 
+{
+	constructor(n, freq_ref=440, n_ref=48)
+	{
+		this.n=n;
+		this.freq_ref=freq_ref;
+		this.n_ref=n_ref;
+	}
+
+	toHertz()
+	{
+		return this.freq_ref * Math.pow(2, (this.n - this.n_ref) / 12)
+	}
+
+	toString()
+	{
+	const names = ["A", "A#", "B", "C", "C#", "D", "D#", "E",
+                       "F", "F#", "G", "G#"];
+	const octave = Math.floor((this.n+9)/12)
+	const name_index =this.n % 12
+		return names[name_index].concat(octave)
+	}
+
+	toCents()
+	{
+		return 100*this.n
+	}
+}
+
 /// Generate and insert the tuner GUI to the DOM.
 /// 
 /// @param {jQuery} root - DOM element to insert the tuner into.
